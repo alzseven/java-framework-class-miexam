@@ -79,4 +79,58 @@ public class UserDao {
             }
         }
     }
+
+    public void update(User user) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement =
+                    connection.prepareStatement("update userinfo set name =?,password =? where id = ? ");
+
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getPassword());
+
+            preparedStatement.executeUpdate();
+
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void delete(Integer id) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement =
+                    connection.prepareStatement("delete from userinfo where id = ?"
+                    );
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
