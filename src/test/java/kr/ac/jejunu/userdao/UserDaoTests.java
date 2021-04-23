@@ -23,7 +23,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void testGet() throws SQLException, ClassNotFoundException {
+    public void testGet() throws SQLException {
         Integer id = 1;
         String name = "JHP";
         String password = "JHPPW";
@@ -36,7 +36,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void insert() throws SQLException, ClassNotFoundException {
+    public void insert() throws SQLException {
         String name = "JHP";
         String password = "1234";
 

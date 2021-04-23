@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UpdateStatementStrategy implements IStatementStrategy{
+    private User user;
+
+    public UpdateStatementStrategy(User user){
+        this.user = user;
+    }
 
     @Override
-    public PreparedStatement makePreparedStatement(Object object, Connection connection) throws SQLException {
-        User user = (User) object;
+    public PreparedStatement makePreparedStatement(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update userinfo set name =?,password =? where id = ? ");
         preparedStatement.setInt(1, user.getId());
         preparedStatement.setString(2, user.getName());
