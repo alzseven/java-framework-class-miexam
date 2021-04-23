@@ -10,7 +10,7 @@ public class JdbcContext {
 
     private final DataSource dataSource;
 
-    public JdbcContext(DataSource dataSource){
+    public JdbcContext(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -30,6 +30,7 @@ public class JdbcContext {
                 user.setName(resultSet.getString("name"));
                 user.setPassword(resultSet.getString("password"));
             }
+
         } finally {
             try {
                 resultSet.close();
@@ -50,7 +51,7 @@ public class JdbcContext {
         return user;
     }
 
-    public void JdbcContextInsert(User user, IStatementStrategy statementStrategy) throws SQLException{
+    public void JdbcContextInsert(User user, IStatementStrategy statementStrategy) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
