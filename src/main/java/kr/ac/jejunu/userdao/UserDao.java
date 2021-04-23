@@ -3,8 +3,14 @@ package kr.ac.jejunu.userdao;
 import java.sql.*;
 
 public class UserDao {
+    private final IConnectionMaker connectionMaker;
+
+    public UserDao(IConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
+    }
+
     public User findById(Integer id) throws ClassNotFoundException, SQLException {
-        Connection connection = new JejuConnectionMaker().getConnection();
+        Connection connection = connectionMaker.getConnection();
         PreparedStatement preparedStatement =
                 connection.prepareStatement("select * from userinfo where id = ?");
         preparedStatement.setLong(1, id);
@@ -25,7 +31,7 @@ public class UserDao {
     }
 
     public void insert(User user) throws ClassNotFoundException, SQLException {
-        Connection connection = new JejuConnectionMaker().getConnection();
+        Connection connection = connectionMaker.getConnection();
         PreparedStatement preparedStatement =
                 connection.prepareStatement("insert into userinfo(name,password) values (?,?) ",
                         Statement.RETURN_GENERATED_KEYS
