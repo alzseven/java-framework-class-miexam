@@ -1,10 +1,7 @@
 package kr.ac.jejunu.userdao;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class JdbcContext {
 
@@ -97,5 +94,39 @@ public class JdbcContext {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public void update(String sql, Object[] params) throws SQLException {
+        JdbcContextUpdate(connection -> {
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                    for (int i = 0; i < params.length; i++) {
+                        preparedStatement.setObject(i + 1, params[i]);
+                    }
+                    return preparedStatement;
+                }
+        );
+    }
+
+    public void insert(User user, String sql, Object[] params) throws SQLException {
+        JdbcContextInsert(user, connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS
+            );
+            for (int i = 0; i < params.length; ++i) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+            return preparedStatement;
+        });
+    }
+
+    public User findById(String sql, Object[] params) throws SQLException {
+        return JdbcContextFindbyId(connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+            return preparedStatement;
+        });
     }
 }
