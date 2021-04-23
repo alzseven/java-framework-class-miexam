@@ -1,16 +1,13 @@
 package kr.ac.jejunu.userdao;
 
-
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.sql.SQLException;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 public class UserDaoTests {
@@ -23,7 +20,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void testGet() throws SQLException {
+    public void testGet() {
         Integer id = 1;
         String name = "JHP";
         String password = "JHPPW";
@@ -36,7 +33,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void insert() throws SQLException {
+    public void insert() {
         String name = "JHP";
         String password = "1234";
 
@@ -53,7 +50,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void update() throws SQLException {
+    public void update() {
         String name = "JHP";
         String password = "1234";
         String newName = "PJH";
@@ -76,7 +73,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void delete() throws SQLException {
+    public void delete() {
         String name = "JHP";
         String password = "1234";
 
